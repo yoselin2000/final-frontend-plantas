@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import "../../styles/about.css";
 import jsPDF from "jspdf";
 import img from "../img/agrecol.png";
+import img2 from "../img/files/llanten.jpeg"
+
 
 const API = process.env.REACT_APP_API;
 
@@ -29,30 +31,33 @@ export const PlantaSingle = () => {
     // doc.addImage(img, 'PNG', 0,0,width,height)
 
 
-    doc.addImage(img, 'PNG', 10,10,35,20)
-    doc.setFont('Arial', 'bold', 12)
+    doc.addImage(img, 'PNG', 10,5,40,25)
+    doc.setFont('Arial', 'bold', 10)
+    doc.text(154, 22, "Fecha: 17-09-22")
+    doc.text(55, 42, "INFORMACION DE PLANTA MEDICINAL")
+
     // doc.cell(30,10,10,30,'title',30,0)
 
-
-    doc.text(12, 60, "Nombre de la planta: " )
-    doc.text(12, 70, "Nombre cientifico: " )
-    doc.text(12, 80, "Propiedades:" )
-    doc.text(12, 90, "Descripcion:" )
-    doc.text(12, 100, "Conocimiento ancestral:" )
-    doc.text(12, 110, "Latitud:" )
-    doc.text(12, 120, "Longitud:" )
+    doc.addImage(img2, 'PNG',70,50,70,70)
+    doc.text(18, 135, "Nombre de la planta: " )
+    doc.text(18, 145, "Nombre cientifico: " )
+    doc.text(18, 155, "Propiedades:" )
+    doc.text(18, 195, "Descripcion:" )
+    doc.text(18, 235, "Conocimiento ancestral:" )
+    doc.text(18, 255, "Latitud:" )
+    doc.text(18, 265, "Longitud:" )
 
     doc.setFont('Helvertica', 'Normal')
 
-    doc.text(80, 60, planta.nombre_planta)
-    doc.text(80, 70, planta.nombre_cientifico)
-    doc.text(80, 80, planta.propiedades, {align: 'justify',lineHeightFactor: 1.5,maxWidth:100})
-    // doc.text(80, 90, planta.descripcion, {align: 'justify',lineHeightFactor: 1.5,maxWidth:20})
-    // doc.text(80, 100, planta.conocimiento_ancestral, {align: 'justify',lineHeightFactor: 1.5,maxWidth:20} )
-    doc.text(80, 110, planta.latitud)
-    doc.text(80, 120, planta.longitud)
+    doc.text(80, 135, planta.nombre_planta)
+    doc.text(80, 145, planta.nombre_cientifico)
+    doc.text(80, 155, planta.propiedades, {align: 'justify',lineHeightFactor: 1, maxWidth:110})
+    doc.text(80, 195, planta.descripcion, {align: 'justify',lineHeightFactor: 1,maxWidth:110})
+    doc.text(80, 235, planta.conocimiento_ancestral, {align: 'justify',lineHeightFactor: 1,maxWidth:110} )
+    doc.text(80, 255, planta.latitud)
+    doc.text(80, 265, planta.longitud)
 
-    doc.addPage()
+    // doc.addPage()
 
     doc.save('DocumentPlanta.pdf')
 }
@@ -61,34 +66,40 @@ export const PlantaSingle = () => {
   return (
     <>
       <div>
+        <center>
+        <h1>{planta.nombre_planta}</h1>
+        <br/>
         <img
           className="planta-img"
-          src={process.env.REACT_APP_API + "/file/" + planta.imagen}
+          // src={process.env.REACT_APP_API + "/file/" + planta.imagen}
+          src={planta.imagen}
+          // src={img2}
           alt="img"
-        />
+        /></center>
+        <br/>
       </div>
       <div className="container mt-4 mb-4">
-        <h3 className="planta-title">
+        {/* <h2 className="planta-title">
           nombre de la planta: <span>{planta.nombre_planta}</span>
-        </h3>
-        <h3>
+        </h2> */}
+        <h2 className="planta-title">
           nombre cientifico: <span>{planta.nombre_cientifico}</span>
-        </h3>
-        <h3>
+        </h2>
+        <h2 className="planta-title">
           propiedades: <span>{planta.propiedades}</span>
-        </h3>
-        <h3>
+        </h2>
+        <h2 className="planta-title">
           descripcion: <span>{planta.descripcion}</span>
-        </h3>
-        <h3>
+        </h2>
+        <h2 className="planta-title">
           conocimiento ancestral: <span>{planta.conocimiento_ancestral}</span>
-        </h3>
-        <h3>
+        </h2>
+        <h2 className="planta-title">
           latitud: <span>{planta.latitud}</span>
-        </h3>
-        <h3>
+        </h2>
+        <h2 className="planta-title">
           longitud: <span>{planta.longitud}</span>
-        </h3>
+        </h2>
       </div>
       
       <center>
@@ -97,11 +108,10 @@ export const PlantaSingle = () => {
         <button className="btn btn-danger" onClick = {Generar_pdf}> descargar PDF</button>
       </Link>
       </center>
-      <h1></h1>
-      <h1></h1>
-      <Link to={"/Pdf"}>
+
+      {/* <Link to={"/Pdf"}>
       <button className="btn btn-info">GENERAR PDF</button>
-      </Link>
+      </Link> */}
 
       {/* <center>
       <button className="btn btn-danger" onClick = {Generar_pdf}> descargar PDF</button>

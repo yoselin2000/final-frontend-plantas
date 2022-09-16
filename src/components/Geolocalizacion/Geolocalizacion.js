@@ -4,7 +4,6 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { IconLocation } from "./IconLocation";
 import axios from "axios";
-import logo from './logo/log.png'
 import '../../styles/geolocalizacion.css'
 
 const API = process.env.REACT_APP_API;
@@ -35,12 +34,15 @@ export const Geolocalizacion = () => {
           icon={IconLocation}
         >
           <Popup>
+
             <img
               className="popup-img"
-              src={API + "/file/" + planta.imagen}
+              // src={API + "/file/" + planta.imagen}
+              src={planta.imagen}
               alt={planta.nombre_planta}
             />
-            {planta.nombre_planta} <br /> {"Latitud: " + planta.latitud}, <br />{"Longitud: " + planta.longitud}{" "}
+            <h4></h4>
+            {planta.nombre_planta} <br /> {"Latitud: " + planta.latitud} <br />{"Longitud: " + planta.longitud}{" "}
              
           </Popup>
         </Marker>

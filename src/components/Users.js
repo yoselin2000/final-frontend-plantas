@@ -1,6 +1,5 @@
-import { icon } from "leaflet";
 import React, { useState, useEffect, useRef } from "react";
-import swal from "sweetalert2";
+
 
 const API = process.env.REACT_APP_API;
 

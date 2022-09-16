@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../styles/about.css";
 import { Link } from "react-router-dom";
-
+import img1 from "./img/files/eucalipto.jpeg"
+import img2 from "./img/files/llanten.jpeg"
 
 const API = process.env.REACT_APP_API;
 
 export const About = () => {
   const [plantas, setPlantas] = useState([]);
+ // const [plantas1, setPlantas1] = useState([]);
 
   useEffect(() => {
     getPlantas();
@@ -16,17 +18,22 @@ export const About = () => {
   const getPlantas = async () => {
     const result = await axios.get(`${API}/Plantas_medicinales`);
     setPlantas(result.data);
+    
   };
 
   console.log(plantas)
 
   return (
+    <div>
+
     <div className="grid-container">
       {plantas.map((planta, index) => (
         <div className="grid-card" key={index}>
           <img
             className="card-img"
-            src={API + '/file/' + planta.imagen}
+            // src={API + '/file/' + planta.imagen}
+            src={planta.imagen}
+            //src = {img1}
             alt={planta.nombre_planta}
           />
           <div className="card-content">
@@ -37,7 +44,10 @@ export const About = () => {
             </Link>
           </div>
         </div>
+
       ))}
+    </div>
+
     </div>
   );
 };

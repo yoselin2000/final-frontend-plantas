@@ -202,7 +202,7 @@ export const Camara = () => {
       }
       
       navigator.mediaDevices
-      .getUserMedia({ video: true })
+      .getUserMedia({ video: true,video: {width: 350, height: 290} })
       .then(function (stream) {
         video.srcObject = stream;
         video.play();
@@ -216,8 +216,8 @@ export const Camara = () => {
   }
 
   const takePhoto = async (e)  =>{
-    const width = 414;
-    const height = width / (16/9);
+    const width = 350;
+    const height = width / (14/12);
     let video = videoRef.current;
     let photo = photoRef.current;
 
@@ -317,88 +317,3 @@ export const Camara = () => {
 };
 
 
-
-
-// // Get color Console Libary
-// require('pretty-console-colors');
-
-// // Show pretty console logs
-// console.log('👋 Log: Hi from NodeJS');
-
-// // Include dependences
-// const fs = require('fs');
-// const Koa = require('koa');
-// const serve = require('koa-static');
-// const Router = require('@koa/router');
-// const multer = require('@koa/multer');
-
-// const app = new Koa();
-// const router = new Router();
-// const upload = multer();
-
-// // Function for create file static with filename and content.
-// const saveFile = async (file) =>
-//   new Promise((resolve, reject) =>
-//     fs.writeFile('./src/uploads/' + file.originalname, file.buffer, (err) =>
-//       err ? reject('An error occurred: ' + err.message)
-//           : resolve({ uploaded: true })));
-
-// // Endpoint Upload.
-// router.post('/upload', upload.single('photo'),async (ctx) => {
-//     // Control for get file on request.
-//     if (!ctx.request.file) 
-//     ctx.throw('Cannot find file on request');
-    
-//     // Try create local file with content.
-//     try {
-//       ctx.body = await saveFile(ctx.request.file);
-//     } catch (err) {
-//       console.log(err);
-//       ctx.throw(err, 500);
-//     }
-//   }
-// );
-
-// // Declare Static Folder.
-// app.use(serve('./src'));
-
-// // add the router to our app
-// app.use(router.routes());
-// app.use(router.allowedMethods());
- 
-// // Run
-// app.listen(3001);
-
-// //////////////////////////////////////////////
-
-// window.onload = function(e){ 
-
-//   // Declare init HTML elements
-//   const camera = document.querySelector('#camera');
-//   const photo = document.querySelector('#photo');
-//   const open = document.querySelector('#open');
-
-//   // Event to active input type file
-//   open.addEventListener('click', function(){
-//     camera.click();
-//   });
-  
-//   // Event on change content type file
-//   camera.addEventListener('change', function(e) {
-//     // Create url object and show Photo from BLOB Object.
-//     photo.src = URL.createObjectURL(e.target.files[0]);
-
-//     // Create Http Request Instance.
-//     const xhttp = new XMLHttpRequest();
-//     xhttp.onreadystatechange = function() {
-//       if (this.readyState == 4 && this.status == 200) console.log(xhttp.responseText);
-//     };
-//     // Create Data Form Instance.
-//     const formData = new FormData();
-//     // Add blob object into instance.
-//     formData.append("photo", e.target.files[0]);
-//     // Open and send data to endpoint /upload
-//     xhttp.open('POST', window.location.href + 'upload', true);
-//     xhttp.send(formData);
-//   });
-// }
