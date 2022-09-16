@@ -29,16 +29,16 @@ export const PlantaSingle = () => {
     // var width = doc.internal.pageSize.getWidth();
     // var height = doc.internal.pageSize.getHeight();
     // doc.addImage(img, 'PNG', 0,0,width,height)
-
+    var img1 = planta.imagen
 
     doc.addImage(img, 'PNG', 10,5,40,25)
     doc.setFont('Arial', 'bold', 10)
-    doc.text(154, 22, "Fecha: 17-09-22")
+    doc.text(154, 22, "Fecha: 16-09-22")//fecha automatica
     doc.text(55, 42, "INFORMACION DE PLANTA MEDICINAL")
 
     // doc.cell(30,10,10,30,'title',30,0)
 
-    doc.addImage(img2, 'PNG',70,50,70,70)
+    doc.addImage(img1, 'jpg',70,50,70,70)
     doc.text(18, 135, "Nombre de la planta: " )
     doc.text(18, 145, "Nombre cientifico: " )
     doc.text(18, 155, "Propiedades:" )
