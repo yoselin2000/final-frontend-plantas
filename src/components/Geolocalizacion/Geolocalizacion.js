@@ -215,10 +215,6 @@ export const Geolocalizacion = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
 console.log(navigator.geolocation.getCurrentPosition(success, error, options))
 
-// const MiUbicacion =()=>{
-//   const ubi = navigator.geolocation.getCurrentPosition(success, error, options);
-//   ubi.
-// }
 
   return (
     <div>
