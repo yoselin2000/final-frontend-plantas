@@ -107,6 +107,10 @@ export const PlantaSingle = () => {
         <button className="btn btn-dark">ATRAS</button>
         <button className="btn btn-danger" onClick = {Generar_pdf}> descargar PDF</button>
       </Link>
+
+      <Link to ={`/Geolocalizacion/${planta._id}`}>
+      <button className="btn btn-dark">CONOCER UBICACION</button>
+      </Link>
       </center>
 
       {/* <Link to={"/Pdf"}>

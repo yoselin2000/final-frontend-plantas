@@ -12,7 +12,7 @@ import { Camara } from "./components/Camara/Camara";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Principal} from "./components/Principal";
 import { Footer } from "./components/Footer";
-
+import { Localizacion} from "./components/Localizacion"
 function App() {
   
 
@@ -27,6 +27,7 @@ function App() {
             <Route path="/About" component={About} />
             <Route path="/planta_medicinal/:plantaId" component={PlantaSingle} />
             <Route path="/Plantas_medicinales" component={Plantas_medicinales} />
+            <Route path="/Localizacion" component={Localizacion} />
             <Route path="/Geolocalizacion" component={Geolocalizacion} />
             <Route path="/Camara" component={Camara} />
             <Route path="/Login" component={Login} />

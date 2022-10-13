@@ -185,7 +185,7 @@ export const Users = () => {
                 <td>{user.contrasena}</td>
                 <td>
                   <button
-                    className="btn btn-secondary btn-sm btn-block"
+                    className="btn btn-dark btn-sm btn-block"
                     onClick={(e) => editUser(user._id)}
                   >
                     Editar

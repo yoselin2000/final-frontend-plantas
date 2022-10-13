@@ -9,7 +9,7 @@
 .grid-card {
   background: aliceblue;
   overflow: hidden;
-  height: 26rem;
+  height: 29rem;
   width: 100%;
   position: relative;
   border: 1px solid rgb(20, 20, 20);
@@ -33,6 +33,10 @@
 
 .card-name-scientific {
     font-size: 1rem;
+}
+
+.card-name-scien {
+  font-size: 0.8rem;
 }
 
 .card-button {
