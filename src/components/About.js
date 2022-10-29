@@ -15,7 +15,8 @@ export const About = () => {
   }, []);
 
   const getPlantas = async () => {
-    const result = await axios.get(`${API}/Plantas_medicinales`);
+    // const result = await axios.get(`${API}/Plantas_medicinales`);
+    const result = await axios.get(`http://34.125.147.49:80/Plantas_medicinales`);
     setPlantas(result.data);
     
   };
@@ -43,15 +44,12 @@ export const About = () => {
   return (
     <div>
 
-{/* <form className="form-inline">
-    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form> */}
 
 <form className="form-inline">
     <input className="form-control mr-sm-2" value={busqueda} placeholder = "SEARCH" onChange={handleChange}/>
-    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    {/* <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
 </form>
+<br/>
 
     <div className="grid-container">
       {plantas.map((planta, index) => (

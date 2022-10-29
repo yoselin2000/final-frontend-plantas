@@ -11,3 +11,14 @@ export const IconLocation = L.icon({
     iconSize: [50, 50],
     className: "leaflet-venue-icon",
 });
+
+export const IconLocation1 = L.icon({
+    iconUrl: require('./logo/localizacion.png'),
+    iconRetinaUrl: require('./logo/localizacion.png'),
+    iconAnchor: null,
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: [50, 50],
+    className: "leaflet-venue-icon",
+});

@@ -1,5 +1,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const API = process.env.REACT_APP_API;
 
@@ -22,7 +24,8 @@ export const Localizacion = () => {
         e.preventDefault();
         //console.log(API)
         if (!editing) {
-          const res = await fetch(`${API}/Localizacion`, {
+          // const res = await fetch(`${API}/Localizacion`, {
+            const res = await fetch(`http://34.125.147.49:80/Localizacion`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -44,27 +47,25 @@ export const Localizacion = () => {
           setLatitud('');
           setLongitud('');
       
-    } 
-
-
-  else {
-    const res = await fetch(`${API}/Localizacion/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nombre_planta,
-        imagen,
-        latitud,
-        longitud
-      }),
-    });
-    const data = await res.json();
-    console.log(data);
-    setEditing(false);
-    setId("");
-  }
+    }else{
+      // const res = await fetch(`${API}/Localizacion/${id}`, {
+        const res = await fetch(`http://34.125.147.49:80/Localizacion/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre_planta,
+          imagen,
+          latitud,
+          longitud
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      setEditing(false);
+      setId("");
+    }
   await getLocalizacion();
 
     setNombre_planta('');
@@ -76,7 +77,8 @@ export const Localizacion = () => {
 
 
   const getLocalizacion = async () => {
-    const res = await fetch(`${API}/Localizacion`);
+    // const res = await fetch(`${API}/Localizacion`);
+    const res = await fetch(`http://34.125.147.49:80/Localizacion`);
     const data = await res.json();
     setLocalizacion(data);
   };
@@ -84,7 +86,8 @@ export const Localizacion = () => {
   const deleteLocalizacion = async (id) => {
     const PlantaResponse = window.confirm("¿Está seguro de que desea eliminarlo?");
     if (PlantaResponse) {
-      const res = await fetch(`${API}/Localizacion/${id}`, {
+      // const res = await fetch(`${API}/Localizacion/${id}`, {
+        const res = await fetch(`http://34.125.147.49:80/Localizacion/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -94,7 +97,8 @@ export const Localizacion = () => {
   };
 
   const editLocalizacio = async (id) => {
-    const res = await fetch(`${API}/Localizacio/${id}`);
+    // const res = await fetch(`${API}/Localizacio/${id}`);
+    const res = await fetch(`http://34.125.147.49:80/Localizacio/${id}`);
     const data = await res.json(); //lo convertimos en un json
 
     setEditing(true);
@@ -164,7 +168,6 @@ export const Localizacion = () => {
               placeholder="Imagen"
 
             /> 
-            {/* <input type="submit"/> */}
 
           </div>
 
@@ -180,12 +183,12 @@ export const Localizacion = () => {
           <h1></h1>
           <center> <h4>LISTA DE LOCALIZACION</h4></center>
       <div className="col-md-2">
-        <table className="table table-striped">
+        {/* <table className="table table-striped">
           <thead>
             <tr>
               <th>Nombre planta</th>
               <th>Latitud</th>
-              <th>Longitud</th>
+              <th>Latitud</th>
               <th>Imagen</th>
               <th>Acciones</th>
             </tr>
@@ -215,7 +218,43 @@ export const Localizacion = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
+
+<Table className="table table-responsive table-striped">
+      <Thead>
+        <Tr>
+          <Th>Nombre planta</Th>
+          <Th>Latitud</Th>
+          <Th>Latitud</Th>
+          <Th>Imagen</Th>
+          <Th>Acciones</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+      {Localizacion.map((Localizacio) => (
+          <Tr key={Localizacio._id}>
+          <Td>{Localizacio.nombre_planta}</Td>
+          <Td>{Localizacio.latitud}</Td>
+          <Td>{Localizacio.longitud}</Td>
+          <Td>{Localizacio.imagen}</Td>
+            <Td>
+              <button
+               className="btn btn-dark btn-sm btn-block"
+               onClick={(e) => editLocalizacio(Localizacio._id)}
+               >
+                Editar
+               </button>
+               <button
+                className="btn btn-danger btn-sm btn-block"
+                onClick={(e) => deleteLocalizacion(Localizacio._id)}
+                >
+                Elimimar
+                </button>
+                </Td>
+                </Tr>
+        ))}
+      </Tbody>
+    </Table>
       </div>
     </div>
   );

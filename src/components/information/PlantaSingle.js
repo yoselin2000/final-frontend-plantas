@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import "../../styles/about.css";
 import jsPDF from "jspdf";
 import img from "../img/agrecol.png";
-import img2 from "../img/files/llanten.jpeg"
 
 
 const API = process.env.REACT_APP_API;
@@ -19,9 +18,15 @@ export const PlantaSingle = () => {
   }, []);
 
   const getPlanta = async () => {
-    const result = await axios.get(`${API}/Plantas_medicinale/` + path);
+    // const result = await axios.get(`${API}/Plantas_medicinale/` + path);
+    const result = await axios.get(`http://34.125.147.49:80/Plantas_medicinale/` + path);
     setPlanta(result.data);
   };
+
+  const geopocition = () => {
+    localStorage.setItem('nombre_para_geopo', planta.nombre_planta);
+    window.location.href = '/Geolocalizacion/';
+  }
 
 
   const Generar_pdf = async () =>{
@@ -33,7 +38,7 @@ export const PlantaSingle = () => {
 
     doc.addImage(img, 'PNG', 10,5,40,25)
     doc.setFont('Arial', 'bold', 10)
-    doc.text(154, 22, "Fecha: 16-09-22")//fecha automatica
+    doc.text(154, 22, "Fecha: 10-11-22")//fecha automatica
     doc.text(55, 42, "INFORMACION DE PLANTA MEDICINAL")
 
     // doc.cell(30,10,10,30,'title',30,0)
@@ -44,8 +49,8 @@ export const PlantaSingle = () => {
     doc.text(18, 155, "Propiedades:" )
     doc.text(18, 195, "Descripcion:" )
     doc.text(18, 235, "Conocimiento ancestral:" )
-    doc.text(18, 255, "Latitud:" )
-    doc.text(18, 265, "Longitud:" )
+    // doc.text(18, 255, "Latitud:" )
+    // doc.text(18, 265, "Longitud:" )
 
     doc.setFont('Helvertica', 'Normal')
 
@@ -54,8 +59,8 @@ export const PlantaSingle = () => {
     doc.text(80, 155, planta.propiedades, {align: 'justify',lineHeightFactor: 1, maxWidth:110})
     doc.text(80, 195, planta.descripcion, {align: 'justify',lineHeightFactor: 1,maxWidth:110})
     doc.text(80, 235, planta.conocimiento_ancestral, {align: 'justify',lineHeightFactor: 1,maxWidth:110} )
-    doc.text(80, 255, planta.latitud)
-    doc.text(80, 265, planta.longitud)
+    // doc.text(80, 255, planta.latitud)
+    // doc.text(80, 265, planta.longitud)
 
     // doc.addPage()
 
@@ -94,12 +99,12 @@ export const PlantaSingle = () => {
         <h2 className="planta-title">
           conocimiento ancestral: <span>{planta.conocimiento_ancestral}</span>
         </h2>
-        <h2 className="planta-title">
+        {/* <h2 className="planta-title">
           latitud: <span>{planta.latitud}</span>
         </h2>
         <h2 className="planta-title">
           longitud: <span>{planta.longitud}</span>
-        </h2>
+        </h2> */}
       </div>
       
       <center>
@@ -108,7 +113,7 @@ export const PlantaSingle = () => {
         <button className="btn btn-danger" onClick = {Generar_pdf}> descargar PDF</button>
       </Link>
 
-      <Link to ={`/Geolocalizacion/${planta._id}`}>
+      <Link onClick={geopocition}>
       <button className="btn btn-dark">CONOCER UBICACION</button>
       </Link>
       </center>

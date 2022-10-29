@@ -713,7 +713,8 @@
 
 
 
-
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import React, { useState, useEffect, useRef } from "react";
 
 const API = process.env.REACT_APP_API;
@@ -741,7 +742,8 @@ export const Plantas_medicinales = () => {
         e.preventDefault();
         //console.log(API)
         if (!editing) {
-          const res = await fetch(`${API}/Plantas_medicinales`, {
+          // const res = await fetch(`${API}/Plantas_medicinales`, {
+            const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -753,9 +755,7 @@ export const Plantas_medicinales = () => {
               propiedades,
               descripcion,
               conocimiento_ancestral,
-              imagen,
-              latitud,
-              longitud
+              imagen
             }),
           });
           const data = await res.json();
@@ -768,14 +768,13 @@ export const Plantas_medicinales = () => {
           setDescripcion('');
           setConocimiento_ancestral('');
           setImagen('');
-          setLatitud('');
-          setLongitud('');
       
     } 
 
 
   else {
-    const res = await fetch(`${API}/Plantas_medicinales/${id}`, {
+    // const res = await fetch(`${API}/Plantas_medicinales/${id}`, {
+      const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -786,9 +785,7 @@ export const Plantas_medicinales = () => {
         propiedades,
         descripcion,
         conocimiento_ancestral,
-        imagen,
-        latitud,
-        longitud
+        imagen
       }),
     });
     const data = await res.json();
@@ -804,14 +801,13 @@ export const Plantas_medicinales = () => {
     setDescripcion('');
     setConocimiento_ancestral('');
     setImagen('');
-    setLatitud('');
-    setLongitud('');
   nameInput.current.focus();
 };
 
 
   const getPlantas_medicinales = async () => {
-    const res = await fetch(`${API}/Plantas_medicinales`);
+    // const res = await fetch(`${API}/Plantas_medicinales`);
+    const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales`);
     const data = await res.json();
     setPlantas_medicinales(data);
   };
@@ -819,7 +815,8 @@ export const Plantas_medicinales = () => {
   const deletePlantas_medicinales = async (id) => {
     const PlantaResponse = window.confirm("¿Está seguro de que desea eliminarlo?");
     if (PlantaResponse) {
-      const res = await fetch(`${API}/Plantas_medicinales/${id}`, {
+      // const res = await fetch(`${API}/Plantas_medicinales/${id}`, {
+        const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -829,7 +826,8 @@ export const Plantas_medicinales = () => {
   };
 
   const editPlantas_medicinale = async (id) => {
-    const res = await fetch(`${API}/Plantas_medicinale/${id}`);
+    // const res = await fetch(`${API}/Plantas_medicinale/${id}`);
+    const res = await fetch(`http://34.125.147.49:80/Plantas_medicinale/${id}`);
     const data = await res.json(); //lo convertimos en un json
 
     setEditing(true);
@@ -842,8 +840,6 @@ export const Plantas_medicinales = () => {
     setDescripcion(data.descripcion);
     setConocimiento_ancestral(data.conocimiento_ancestral);
     setImagen(data.imagen);
-    setLatitud(data.latitud);
-    setLongitud(data.longitud);
 
     nameInput.current.focus();
   };
@@ -910,25 +906,6 @@ export const Plantas_medicinales = () => {
             />
           </div>
 
-          <div className="form-group">
-            <input
-              type="latitud"
-              onChange={(e) => setLatitud(e.target.value)}
-              value={latitud}
-              className="form-control"
-              placeholder="Latitud"
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              type="longitud"
-              onChange={(e) => setLongitud(e.target.value)}
-              value={longitud}
-              className="form-control"
-              placeholder="Longitud"
-            />
-          </div>
 
           <div className="form-group" >
             <input
@@ -939,9 +916,7 @@ export const Plantas_medicinales = () => {
               value={imagen}
               className="form-control"
               placeholder="Imagen"
-
             /> 
-            {/* <input type="submit"/> */}
 
           </div>
 
@@ -957,7 +932,7 @@ export const Plantas_medicinales = () => {
           <h1></h1>
           <center> <h4>LISTA DE PLANTAS MEDICINALES</h4></center>
       <div className="col-md-2">
-        <table className="table table-striped">
+        {/* <table className="table table-striped">
           <thead>
             <tr>
               <th>Nombre cientifico</th>
@@ -1000,7 +975,45 @@ export const Plantas_medicinales = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
+
+<Table className="table table-responsive table-striped">
+      <Thead>
+        <Tr>
+          <Th>Nombre cientifico</Th>
+          <Th>Nombre planta</Th>
+          <Th>Propiedades</Th>
+          <Th>Conocimiento ancestral</Th>
+          <Th>Imagen</Th>
+          <Th>Acciones</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+      {Plantas_medicinales.map((Plantas_medicinale) => (
+        <Tr key={Plantas_medicinale._id}>
+          <Td>{Plantas_medicinale.nombre_cientifico}</Td>
+          <Td>{Plantas_medicinale.nombre_planta}</Td>
+          <Td>{Plantas_medicinale.propiedades}</Td>
+          <Td>{Plantas_medicinale.descripcion}</Td>
+          <Td>{Plantas_medicinale.imagen}</Td>
+            <Td>
+              <button
+               className="btn btn-dark btn-sm btn-block"
+               onClick={(e) => editPlantas_medicinale(Plantas_medicinale._id)}
+               >
+                Editar
+               </button>
+               <button
+                className="btn btn-danger btn-sm btn-block"
+                onClick={(e) => deletePlantas_medicinales(Plantas_medicinale._id)}
+                >
+                Elimimar
+                </button>
+                </Td>
+                </Tr>
+        ))}
+      </Tbody>
+    </Table>
       </div>
     </div>
   );
