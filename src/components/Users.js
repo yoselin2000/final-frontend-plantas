@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 const API = process.env.REACT_APP_API;
 
@@ -8,10 +8,9 @@ export const Users = () => {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
-  const [editing, setEditing] = useState(false);//para poder cambiar el estado de falso a verdadero
+  const [editing, setEditing] = useState(false); //para poder cambiar el estado de falso a verdadero
   const [id, setId] = useState("");
   const nameInput = useRef(null);
-
 
   let [Administrador, setUsers] = useState([]);
 
@@ -19,7 +18,7 @@ export const Users = () => {
     e.preventDefault();
     if (!editing) {
       // const res = await fetch(`${API}/Administrador`, {
-        const res = await fetch(`http://34.125.147.49:80/Administrador`, {
+      const res = await fetch(`http://34.125.147.49:80/Administrador`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,20 +26,19 @@ export const Users = () => {
         body: JSON.stringify({
           nombre,
           email,
-          contrasena
+          contrasena,
         }),
       });
       const data = await res.json();
-      console.log(data)
+      console.log(data);
       await getUsers();
 
-      setNombre('');
-      setEmail('');
-      setContrasena('');
-
+      setNombre("");
+      setEmail("");
+      setContrasena("");
     } else {
       // const res = await fetch(`${API}/Administrador/${id}`, {
-        const res = await fetch(`http://34.125.147.49:80/Administrador/${id}`, {
+      const res = await fetch(`http://34.125.147.49:80/Administrador/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +46,7 @@ export const Users = () => {
         body: JSON.stringify({
           nombre,
           email,
-          contrasena
+          contrasena,
         }),
       });
       const data = await res.json();
@@ -66,17 +64,19 @@ export const Users = () => {
 
   const getUsers = async () => {
     // const res = await fetch(`${API}/Administrador`);
-    const res = await fetch(`http://34.125.147.49:80/Administrador`);
+    const res = await fetch(`https://plantasagrecol.cf/Administrador`);
     const data = await res.json();
     setUsers(data);
   };
 
   const deleteUsers = async (id) => {
-    const userResponse = window.confirm("¿Está seguro de que desea eliminarlo?");
+    const userResponse = window.confirm(
+      "¿Está seguro de que desea eliminarlo?"
+    );
 
     if (userResponse) {
       // const res = await fetch(`${API}/Administrador/${id}`, {
-        const res = await fetch(`http://34.125.147.49:80/Administrador/${id}`, {
+      const res = await fetch(`https://plantasagrecol.cf/Administrador/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -87,7 +87,7 @@ export const Users = () => {
 
   const editUser = async (id) => {
     // const res = await fetch(`${API}/Administrado/${id}`);
-    const res = await fetch(`http://34.125.147.49:80/Administrado/${id}`);
+    const res = await fetch(`https://plantasagrecol.cf/Administrado/${id}`);
     const data = await res.json();
 
     setEditing(true);
@@ -104,11 +104,12 @@ export const Users = () => {
     getUsers();
   }, []);
 
-
   return (
-    
     <div className="row">
-      <center> <h4>REGISTRO DE USUARIOS</h4></center>
+      <center>
+        {" "}
+        <h4>REGISTRO DE USUARIOS</h4>
+      </center>
       <div className="col-md-12">
         <form onSubmit={handleSubmit} className="card card-body">
           <div className="form-group">
@@ -134,10 +135,9 @@ export const Users = () => {
               autoFocus
             />
             <div class="input-group-append">
-            {/* <span class="input-group-text" id="basic-addon2">@gmail.com</span> */}
+              {/* <span class="input-group-text" id="basic-addon2">@gmail.com</span> */}
             </div>
           </div>
-
 
           <div className="form-group">
             <input
@@ -154,16 +154,19 @@ export const Users = () => {
         </form>
       </div>
 
-<br></br>
-<h1></h1>
-<h1></h1>
-<h1></h1>
+      <br></br>
+      <h1></h1>
+      <h1></h1>
+      <h1></h1>
 
-<center> <h4>LISTA DE USUARIOS</h4></center>
-<br></br>
-     
+      <center>
+        {" "}
+        <h4>LISTA DE USUARIOS</h4>
+      </center>
+      <br></br>
+
       {/* <div className="col-md-6"> */}
-        {/* <table className="table table-responsive table-striped">
+      {/* <table className="table table-responsive table-striped">
           <thead>
             <tr>
               <th scope="col">Usuario</th>
@@ -197,43 +200,42 @@ export const Users = () => {
             ))}
           </tbody>
         </table> */}
-        {/* </div>  */}
-        <Table className="table table-responsive table-striped">
-      <Thead>
-        <Tr>
-          <Th>Usuario</Th>
-          <Th>Email</Th>
-          <Th>Contraseña</Th>
-          <Th>Acciones</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-      {Administrador.map((user) => (
-        <Tr key={user._id}>
-          <Td>{user.nombre}</Td>
-          <Td>{user.email}</Td>
-          <Td>{user.contrasena}</Td>
-            <Td>
-              <button
-               className="btn btn-dark btn-sm btn-block"
-               onClick={(e) => editUser(user._id)}
-               >
-                Editar
-               </button>
-               <button
-                className="btn btn-danger btn-sm btn-block"
-                onClick={(e) => deleteUsers(user._id)}
+      {/* </div>  */}
+      <Table className="table table-responsive table-striped">
+        <Thead>
+          <Tr>
+            <Th>Usuario</Th>
+            <Th>Email</Th>
+            <Th>Contraseña</Th>
+            <Th>Acciones</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {Administrador.map((user) => (
+            <Tr key={user._id}>
+              <Td>{user.nombre}</Td>
+              <Td>{user.email}</Td>
+              <Td>{user.contrasena}</Td>
+              <Td>
+                <button
+                  className="btn btn-dark btn-sm btn-block"
+                  onClick={(e) => editUser(user._id)}
                 >
-                Elimimar
+                  Editar
                 </button>
-                </Td>
-                </Tr>
-        ))}
-      </Tbody>
-    </Table>
-        
+                <button
+                  className="btn btn-danger btn-sm btn-block"
+                  onClick={(e) => deleteUsers(user._id)}
+                >
+                  Elimimar
+                </button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
 
-{/* 
+      {/* 
 <ResponsiveGridLayout
         layouts={{ lg: layout }}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
@@ -284,4 +286,3 @@ export const Users = () => {
     </div>
   );
 };
-

@@ -22,7 +22,7 @@ export function Login() {
     try {
       await axios
         // .post(`${API}/Administrador-login`, { email, contrasena })
-        .post(`http://34.125.147.49:80/Administrador-login`, { email, contrasena })
+        .post(`https://plantasagrecol.cf/Administrador-login`, { email, contrasena })
         .then((response) => {
           console.log(response);
           localStorage.setItem(
@@ -52,7 +52,7 @@ export function Login() {
 
   const getUsers = async () => {
     // const res = await fetch(`${API}/Administrador`);
-    const res = await fetch(`http://34.125.147.49:80/Administrador`);
+    const res = await fetch(`https://plantasagrecol.cf/Administrador`);
     const data = await res.json();
     setUsers(data);
   };

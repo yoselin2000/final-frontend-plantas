@@ -48,17 +48,59 @@
 
 .planta-img {
   display: flex;
-  width: 900px;
-  height: 600px;
+  width: 350px;
+  height: 250px;
   object-fit: cover;
   border: 3px solid rgb(20, 20, 20);
 }
 
 span {
-  font-size: 1.4rem;
+  font-size: 1rem;
   color: rgb(20, 20, 20);
 }
 
 .planta-title {
+  font-size: 1.2rem;
   color: brown;
 }
+
+.planta-container {
+  /* display: block;
+  width: 100%;
+  max-width: 800px;
+  height: 600px; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+}
+
+.planta-container img {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  height: 650px;
+}
+
+.container-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container-content {
+  display: grid;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .planta-container{
+    display: block;
+  }
+  
+  .planta-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+

@@ -42,14 +42,13 @@
 //             <li>
 //               <Link className="nav-link" to="/Camara">Camara</Link>
 //             </li>
-            
-            
+
 //             </NavDropdown> */}
 
 //             <li>
 //               <Link className="nav-link" to="/Camara">Camara</Link>
 //             </li>
-            
+
 //             <li className="nav-item">
 //               <Link className="nav-link" to="/About">Informacion</Link>
 //             </li>
@@ -79,32 +78,27 @@
 //               <NavDropdown title={JSON.parse(localStorage.getItem('login')).email}>
 //                 <DropdownItem href={"/"} onClick={logout}>Cerrar Sesion</DropdownItem>
 //               </NavDropdown>
-//             } 
-            
+//             }
+
 //           </ul>
 //         </div>
 //       </nav>
 
 // );
 
-
-
-
-
-
-import React from 'react'
-import {Link} from 'react-router-dom'
-import {NavDropdown } from 'react-bootstrap';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import React from "react";
+import { Link } from "react-router-dom";
+import { NavDropdown } from "react-bootstrap";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import img from "./img/andes.png";
-import "../styles/navbar.css"
-import { useRef } from 'react'
-import {FaBars, FaTimes} from "react-icons/fa";
+import "../styles/navbar.css";
+import { useRef } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 
-const logout = () =>{
-  localStorage.clear()
-  localStorage.clear()
-  window.location.href = '/'
+const logout = () => {
+  localStorage.clear();
+  localStorage.clear();
+  window.location.href = "/";
 };
 // const toggleMenu = () =>{
 //   setMenu( !menu)
@@ -112,57 +106,69 @@ const logout = () =>{
 
 // const [menu, setMenu] = useState (false)
 
-
 export const Navbar = () => {
-
   const navRef = useRef();
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
-  }
+  };
 
   return (
     <div>
       <header>
-      <a href="/Principal">
-         <img  src={img} witdh="160" height="90"
-        />
-      </a>
-      <button className='nav-btn' onClick={showNavbar}>
-        <FaBars/>
-      </button>
-
-      <nav ref={navRef}>
-      {/* <div className='derecha'> */}
-        <a href='/Camara'>CÁMARA</a>
-        <a href='/About'>INFORMACIÓN</a>
-        <a href='/Geolocalizacion'>GEOLOCALIZACIÓN</a>
-
-          {localStorage.getItem('login')?   
-          <>
-
-        <a href='/Users'>USUARIOS</a>
-        <a href='/Plantas_medicinales'>PLANTAS MEDICINALES</a>
-        <a href='/Localizacion'>LOCALIZACIÓN</a>   
-           
-          </>
-          :<></>}
-          {localStorage.getItem('login')&&
-            <NavDropdown title={JSON.parse(localStorage.getItem('login')).email}>
-              <DropdownItem href={"/"} onClick={logout}>Cerrar Sesion</DropdownItem>
-            </NavDropdown>
-          } 
-{/* </div> */}
-        <button className='nav-btn nav-close-btn' onClick={showNavbar}>
-          <FaTimes/>
+        <a href="/Principal">
+          <img src={img} witdh="160" height="90" />
+        </a>
+        <button className="nav-btn" onClick={showNavbar}>
+          <FaBars />
         </button>
-      </nav>
 
+        <nav ref={navRef}>
+          {/* <div className='derecha'> */}
+          <a href="/Camara">CÁMARA</a>
+          <a href="/About">INFORMACIÓN</a>
+          <a href="/Geolocalizacion">GEOLOCALIZACIÓN</a>
+
+          {localStorage.getItem("login") ? (
+            <>
+              <a href="/Users">USUARIOS</a>
+              <a href="/Plantas_medicinales">PLANTAS MEDICINALES</a>
+              <a href="/Localizacion">LOCALIZACIÓN</a>
+              <a href={"/"}>
+                <button className="btn btn-primary" onClick={logout}>Cerrar Sesión</button>
+              </a>
+              {/* <div
+                className="dropdown"
+                title={JSON.parse(localStorage.getItem("login")).email}
+              >
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </button>
+
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href={"/"}>
+                    <button onClick={logout}>Cerrar Sesion</button>
+                  </a>
+                </div>
+              </div> */}
+            </>
+          ) : null}
+          {/* {localStorage.getItem("login") && <></>} */}
+          {/* </div> */}
+
+          <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+            <FaTimes />
+          </button>
+        </nav>
       </header>
     </div>
-  )};
+  );
+};
 
-  export default Navbar;
-
-
-
-
+export default Navbar;

@@ -16,7 +16,8 @@ export const About = () => {
 
   const getPlantas = async () => {
     // const result = await axios.get(`${API}/Plantas_medicinales`);
-    const result = await axios.get(`http://34.125.147.49:80/Plantas_medicinales`);
+    const result = await axios.get(`https://plantasagrecol.cf/Plantas_medicinales`);
+    // const result = await axios.get(`http://plantasagrecol.cf/Plantas_medicinales`);
     setPlantas(result.data);
     
   };

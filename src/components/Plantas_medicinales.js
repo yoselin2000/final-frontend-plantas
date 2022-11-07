@@ -278,7 +278,7 @@
 //                   ACTUALIZAR
 //                 </button>
 //               ) : (
-//                 <center>                  
+//                 <center>
 //                   <input type="submit" className="btn btn-primary btn-block"/></center>
 //               )}
 //             </div>
@@ -286,12 +286,11 @@
 //         </form>
 //       </div>
 
-
 // <h1></h1>
 // <h1></h1>
 // <h1></h1>
 // <center> <h4>LISTA DE PLANTAS MEDICINALES</h4></center>
-      
+
 //       <div className="col-md-2">
 //         <table className="table table-striped">
 //           <thead>
@@ -352,7 +351,6 @@
 //     </div>
 //   );
 // };
-
 
 ////////////////////////////////////////////////////////////////////////////////////
 // import axios from "axios";
@@ -635,7 +633,7 @@
 //                   ACTUALIZAR
 //                 </button>
 //               ) : (
-//                 <center>                  
+//                 <center>
 //                   <input type="submit" className="btn btn-primary btn-block"/></center>
 //               )}
 //             </div>
@@ -643,12 +641,11 @@
 //         </form>
 //       </div>
 
-
 // <h1></h1>
 // <h1></h1>
 // <h1></h1>
 // <center> <h4>LISTA DE PLANTAS MEDICINALES</h4></center>
-      
+
 //       <div className="col-md-2">
 //         <table className="table table-striped">
 //           <thead>
@@ -710,115 +707,114 @@
 //   );
 // };
 
-
-
-
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+// import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import '../styles/table.css'
 import React, { useState, useEffect, useRef } from "react";
 
 const API = process.env.REACT_APP_API;
 
 export const Plantas_medicinales = () => {
+  const [nombre_cientifico, setNombre_cientifico] = useState("");
+  const [nombre_planta, setNombre_planta] = useState("");
+  const [propiedades, setPropiedades] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [conocimiento_ancestral, setConocimiento_ancestral] = useState("");
+  const [imagen, setImagen] = useState("");
+  const [latitud, setLatitud] = useState("");
+  const [longitud, setLongitud] = useState("");
 
-  const [nombre_cientifico, setNombre_cientifico] = useState('');
-  const [nombre_planta, setNombre_planta] = useState('');
-  const [propiedades, setPropiedades] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [conocimiento_ancestral, setConocimiento_ancestral] = useState('');
-  const [imagen, setImagen] = useState('');
-  const [latitud, setLatitud] = useState('');
-  const [longitud, setLongitud] = useState('');
-
-
-  const [editing, setEditing] = useState(false)
-  const [id, setId] = useState('');
+  const [editing, setEditing] = useState(false);
+  const [id, setId] = useState("");
 
   const nameInput = useRef(null);
 
   let [Plantas_medicinales, setPlantas_medicinales] = useState([]);
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        //console.log(API)
-        if (!editing) {
-          // const res = await fetch(`${API}/Plantas_medicinales`, {
-            const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              //'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-              nombre_cientifico,
-              nombre_planta,
-              propiedades,
-              descripcion,
-              conocimiento_ancestral,
-              imagen
-            }),
-          });
-          const data = await res.json();
-          console.log(data)
-          await getPlantas_medicinales();
-    
-          setNombre_cientifico('');
-          setNombre_planta('');
-          setPropiedades('');
-          setDescripcion('');
-          setConocimiento_ancestral('');
-          setImagen('');
-      
-    } 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //console.log(API)
+    if (!editing) {
+      // const res = await fetch(`${API}/Plantas_medicinales`, {
+      const res = await fetch(`https://plantasagrecol.cf/Plantas_medicinales`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre_cientifico,
+          nombre_planta,
+          propiedades,
+          descripcion,
+          conocimiento_ancestral,
+          imagen,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      await getPlantas_medicinales();
 
+      setNombre_cientifico("");
+      setNombre_planta("");
+      setPropiedades("");
+      setDescripcion("");
+      setConocimiento_ancestral("");
+      setImagen("");
+    } else {
+      // const res = await fetch(`${API}/Plantas_medicinales/${id}`, {
+      const res = await fetch(
+        `https://plantasagrecol.cf/Plantas_medicinales/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre_cientifico,
+            nombre_planta,
+            propiedades,
+            descripcion,
+            conocimiento_ancestral,
+            imagen,
+          }),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      setEditing(false);
+      setId("");
+    }
+    await getPlantas_medicinales();
 
-  else {
-    // const res = await fetch(`${API}/Plantas_medicinales/${id}`, {
-      const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nombre_cientifico,
-        nombre_planta,
-        propiedades,
-        descripcion,
-        conocimiento_ancestral,
-        imagen
-      }),
-    });
-    const data = await res.json();
-    console.log(data);
-    setEditing(false);
-    setId("");
-  }
-  await getPlantas_medicinales();
-
-    setNombre_cientifico('');
-    setNombre_planta('');
-    setPropiedades('');
-    setDescripcion('');
-    setConocimiento_ancestral('');
-    setImagen('');
-  nameInput.current.focus();
-};
-
+    setNombre_cientifico("");
+    setNombre_planta("");
+    setPropiedades("");
+    setDescripcion("");
+    setConocimiento_ancestral("");
+    setImagen("");
+    nameInput.current.focus();
+  };
 
   const getPlantas_medicinales = async () => {
     // const res = await fetch(`${API}/Plantas_medicinales`);
-    const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales`);
+    const res = await fetch(`https://plantasagrecol.cf/Plantas_medicinales`);
     const data = await res.json();
     setPlantas_medicinales(data);
   };
 
   const deletePlantas_medicinales = async (id) => {
-    const PlantaResponse = window.confirm("¿Está seguro de que desea eliminarlo?");
+    const PlantaResponse = window.confirm(
+      "¿Está seguro de que desea eliminarlo?"
+    );
     if (PlantaResponse) {
       // const res = await fetch(`${API}/Plantas_medicinales/${id}`, {
-        const res = await fetch(`http://34.125.147.49:80/Plantas_medicinales/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://plantasagrecol.cf/Plantas_medicinales/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
       console.log(data);
       await getPlantas_medicinales();
@@ -827,11 +823,13 @@ export const Plantas_medicinales = () => {
 
   const editPlantas_medicinale = async (id) => {
     // const res = await fetch(`${API}/Plantas_medicinale/${id}`);
-    const res = await fetch(`http://34.125.147.49:80/Plantas_medicinale/${id}`);
+    const res = await fetch(
+      `https://plantasagrecol.cf/Plantas_medicinale/${id}`
+    );
     const data = await res.json(); //lo convertimos en un json
 
     setEditing(true);
-    setId(id)
+    setId(id);
 
     // Reset
     setNombre_cientifico(data.nombre_cientifico);
@@ -850,7 +848,10 @@ export const Plantas_medicinales = () => {
 
   return (
     <div className="row">
-      <center> <h4>REGISTRO DE PLANTAS MEDICINALES</h4></center>
+      <center>
+        {" "}
+        <h4>REGISTRO DE PLANTAS MEDICINALES</h4>
+      </center>
 
       <div className="col-md-12">
         <form onSubmit={handleSubmit} className="card card-body">
@@ -906,8 +907,7 @@ export const Plantas_medicinales = () => {
             />
           </div>
 
-
-          <div className="form-group" >
+          <div className="form-group">
             <input
               type="text"
               name="imagen"
@@ -916,8 +916,7 @@ export const Plantas_medicinales = () => {
               value={imagen}
               className="form-control"
               placeholder="Imagen"
-            /> 
-
+            />
           </div>
 
           <button className="btn btn-primary btn-block">
@@ -926,96 +925,57 @@ export const Plantas_medicinales = () => {
         </form>
       </div>
 
-      
       <h1></h1>
-          <h1></h1>
-          <h1></h1>
-          <center> <h4>LISTA DE PLANTAS MEDICINALES</h4></center>
-      <div className="col-md-2">
-        {/* <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Nombre cientifico</th>
-              <th>Nombre planta</th>
-              <th>Propiedades</th>
-              <th>Descripcion</th>
-              <th>Conocimiento ancestral</th>
-              <th>Latitud</th>
-              <th>Longitud</th>
-              <th>Imagen</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            
+      <h1></h1>
+      <h1></h1>
+      <center>
+        {" "}
+        <h4>LISTA DE PLANTAS MEDICINALES</h4>
+      </center>
+      <div className="content-table">
+
+        <Table className="table table-responsive table-striped">
+          <Thead>
+            <Tr>
+              <Th className="p-3">Nombre cientifico</Th>
+              <Th>Nombre planta</Th>
+              <Th>Propiedades</Th>
+              <Th>Conocimiento ancestral</Th>
+              <Th>Imagen</Th>
+              <Th>Acciones</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {Plantas_medicinales.map((Plantas_medicinale) => (
-              <tr key={Plantas_medicinale._id}>
-                <td>{Plantas_medicinale.nombre_cientifico}</td>
-                <td>{Plantas_medicinale.nombre_planta}</td>
-                <td>{Plantas_medicinale.propiedades}</td>
-                <td>{Plantas_medicinale.descripcion}</td>
-                <td>{Plantas_medicinale.conocimiento_ancestral}</td>
-                <td>{Plantas_medicinale.latitud}</td>
-                <td>{Plantas_medicinale.longitud}</td>
-                <td>{Plantas_medicinale.imagen}</td>
-                <td>
+              <Tr key={Plantas_medicinale._id}>
+                <Td>{Plantas_medicinale.nombre_cientifico}</Td>
+                <Td>{Plantas_medicinale.nombre_planta}</Td>
+                <Td>{Plantas_medicinale.propiedades}</Td>
+                <Td>{Plantas_medicinale.descripcion}</Td>
+                <Td>{Plantas_medicinale.imagen}</Td>
+                <Td>
                   <button
                     className="btn btn-dark btn-sm btn-block"
-                    onClick={(e) => editPlantas_medicinale(Plantas_medicinale._id)}
+                    onClick={(e) =>
+                      editPlantas_medicinale(Plantas_medicinale._id)
+                    }
                   >
                     Editar
                   </button>
                   <button
                     className="btn btn-danger btn-sm btn-block"
-                    onClick={(e) => deletePlantas_medicinales(Plantas_medicinale._id)}
+                    onClick={(e) =>
+                      deletePlantas_medicinales(Plantas_medicinale._id)
+                    }
                   >
-                    Eliminar
+                    Elimimar
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
-
-<Table className="table table-responsive table-striped">
-      <Thead>
-        <Tr>
-          <Th>Nombre cientifico</Th>
-          <Th>Nombre planta</Th>
-          <Th>Propiedades</Th>
-          <Th>Conocimiento ancestral</Th>
-          <Th>Imagen</Th>
-          <Th>Acciones</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-      {Plantas_medicinales.map((Plantas_medicinale) => (
-        <Tr key={Plantas_medicinale._id}>
-          <Td>{Plantas_medicinale.nombre_cientifico}</Td>
-          <Td>{Plantas_medicinale.nombre_planta}</Td>
-          <Td>{Plantas_medicinale.propiedades}</Td>
-          <Td>{Plantas_medicinale.descripcion}</Td>
-          <Td>{Plantas_medicinale.imagen}</Td>
-            <Td>
-              <button
-               className="btn btn-dark btn-sm btn-block"
-               onClick={(e) => editPlantas_medicinale(Plantas_medicinale._id)}
-               >
-                Editar
-               </button>
-               <button
-                className="btn btn-danger btn-sm btn-block"
-                onClick={(e) => deletePlantas_medicinales(Plantas_medicinale._id)}
-                >
-                Elimimar
-                </button>
                 </Td>
-                </Tr>
-        ))}
-      </Tbody>
-    </Table>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </div>
     </div>
   );
 };
-

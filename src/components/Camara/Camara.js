@@ -41,9 +41,12 @@ export const Camara = () => {
         };
       }
       
-      navigator.mediaDevices
-      .getUserMedia({ video: true,video: {width: 350, height: 290} })
-      .then(function (stream) {
+      //video: true
+      navigator.mediaDevices.getUserMedia({      video: {
+        facingMode: 'environment',
+        width: 350,
+        height: 290
+      }}).then(function (stream) {
         video.srcObject = stream;
         video.play();
 
@@ -93,14 +96,10 @@ export const Camara = () => {
     let pathfile = photo.toDataURL('image/jpg').split(";base64,").pop();
     //console.log(JSON.parse(localStorage.getItem('login')).email + '' + Math.random())
     var nombre= Math.random()+ ".png"
-    // console.log(JSON.parse('imagen'+ Math.random()))
-    // var nombre= JSON.parse('imagen'+ Math.random()+ ".png")
-
     localStorage.setItem('photo', nombre)
-    //console.log('photo', nombre)
 
   //  axios.post(`${API}prediccion img save`, {'json':pathfile, 'nombre': nombre},{
-    axios.post(`http://34.125.147.49:80/prediccion img save`, {'json':pathfile, 'nombre': nombre},{
+    axios.post(`https://plantasagrecol.cf/prediccion img save`, {'json':pathfile, 'nombre': nombre},{
     }).then((response) => {
       console.log('res: ', response);
       
@@ -114,7 +113,7 @@ export const Camara = () => {
   const onChangePicture = () => {
     // console.log(image.file)
     // axios.post(`${API}predict`, {'photo' : localStorage.getItem('photo') },{
-      axios.post(`http://34.125.147.49:80/predict`, {'photo' : localStorage.getItem('photo') },{
+      axios.post(`https://plantasagrecol.cf/predict`, {'photo' : localStorage.getItem('photo') },{
     }).then((response) => {
         // console.log(response.data);
         console.log(response.data );
@@ -178,7 +177,7 @@ const savePicture = () => {
 
   var nombre_planta = infoPredict.nombre;
   // axios.post(`${API}savePredict`, {
-    axios.post(`http://34.125.147.49:80/savePredict`, {
+    axios.post(`https://plantasagrecol.cf/savePredict`, {
     'nombre_planta': nombre_planta,
     'imagen': imagen,
     'latitud': latitud,

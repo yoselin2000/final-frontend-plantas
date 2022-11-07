@@ -1,0 +1,24 @@
+.content-table {
+    /* background: #000; */
+    width: 100%;
+    border: 1px solid black;
+    /* overflow: hidden; */
+}
+
+table {
+    display: block;
+    overflow-x: scroll;
+    width: 100%;
+    /* background: #000; */
+}
+
+.th-title {
+    min-height: 2rem;
+    background-color: red;
+}
+
+@media screen and (max-width: 600px) {
+    .content-table {
+        border: none;
+    }
+}
